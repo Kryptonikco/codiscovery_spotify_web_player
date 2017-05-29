@@ -122,6 +122,7 @@ import $ from 'jquery';
 
 <details>
 <summary>Réponse</summary>
+
 ```js
 const attachEvents = () => {
   $('#search').click(() => {
@@ -136,6 +137,7 @@ const callSpotifyAlbums = (query) => {
 
 attachEvents();
 ```
+
 </details>
 
 Avant de passer à l'étape suivante, tapez un texte, cliquez sur le bouton "Search" et vérifiez que la `query` apparaît dans la console JavaScript de Chrome.
