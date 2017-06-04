@@ -30,7 +30,7 @@ Votre application React avec live reload et transpilation de ES6 à ES5 est prê
 
 Ouvrez le dossier `spotify_web_player` dans votre éditeur de texte. On va pouvoir commencer à coder ! 🤗
 
-# Etape 1 - HTML (TODO cours sur l'HTML)
+# Etape 1 - HTML
 
 Ouvrez le fichier `public/index.html`
 
@@ -77,7 +77,7 @@ Admirez votre travail sur le navigateur (les 2 dernières `div` ne sont pas visi
 Avant de passer à l'étape suivante, vérifiez que la police d'écriture a changé
 
 
-# Etape 3 - Avec un peu d'`id` et de `class`, on a beaucoup de `style` (TODO cours sur le CSS)
+# Etape 3 - Avec un peu d'`id` et de `class`, on a beaucoup de `style`
 
 - Dans le `public/index.html`, ajoutez la balise `link`
   - avec l'attribut `rel` et la valeur `stylesheet`
@@ -102,7 +102,7 @@ Regardez le résultat dans votre navigateur, la page et le texte ont changé de 
 
 🤓 IZI !
 
-# Etape 4 - Détection du click (TODO cours sur Javascript)
+# Etape 4 - Détection du click
 
 N.B: On utilisera ES6
 
@@ -146,7 +146,7 @@ Avant de passer à l'étape suivante, tapez un texte, cliquez sur le bouton "Sea
 
 N.B: Pour ouvrir la console: `View > Developer > JavaScript console`
 
-# Etape 5 - Appel à l'API (TODO cours sur les objets et lecture d'API/JSON)
+# Etape 5 - Appel à l'API 
 
 - Créez un appel à la méthode `ajax` de jQuery qui a pour paramètre un objet.
 
@@ -188,7 +188,7 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
 
 </details>
 
-# Etape 6 - Faire une boucle (TODO cours sur les boucles `forEach`)
+# Etape 6 - Faire une boucle
 
 - Dans la fonction qui récupère réponse du serveur, créez une variable `items` qui a pour valeur `response.albums.items`. Le but est uniquement de simplifier la lecture et l'écriture des lignes suivantes pour éviter d'écrire `response.albums.items`.
 - Faites une boucle `forEach` sur la variable `items`
