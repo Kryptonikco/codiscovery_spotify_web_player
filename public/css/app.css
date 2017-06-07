@@ -10,6 +10,7 @@ body {
 }
 
 .input-group {
+  display: none;
   margin-bottom: 20px;
 }
 
