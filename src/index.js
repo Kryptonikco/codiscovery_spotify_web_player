@@ -9,23 +9,23 @@ const playerTemplate = Handlebars.compile(playerTemplateSource);
 const audioPlayer = new Audio();
 
 const login = (callback) => {
-  var CLIENT_ID = '7b1fc9ad7b5d4197a17901f7b62677e0';
-  var REDIRECT_URI = 'http://labs.kryptonik.net/spotify-oauth-localhost-proxy/';
-  function getLoginURL(scopes) {
+  const CLIENT_ID = '7b1fc9ad7b5d4197a17901f7b62677e0';
+  const REDIRECT_URI = 'http://labs.kryptonik.net/spotify-oauth-localhost-proxy/';
+  const getLoginURL = (scopes) => {
       return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
         '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
         '&scope=' + encodeURIComponent(scopes.join(' ')) +
         '&response_type=token';
-  }
+  };
   
-  var url = getLoginURL([
+  const url = getLoginURL([
       'user-read-email'
   ]);
   
-  var width = 450,
-      height = 730,
-      left = (screen.width / 2) - (width / 2), // eslint-disable-line no-restricted-globals
-      top = (screen.height / 2) - (height / 2); // eslint-disable-line no-restricted-globals
+  const width = 450;
+  const height = 730;
+  const left = (screen.width / 2) - (width / 2); // eslint-disable-line no-restricted-globals
+  const top = (screen.height / 2) - (height / 2); // eslint-disable-line no-restricted-globals
 
   window.addEventListener("message", (event) => {
       var hash = JSON.parse(event.data);
@@ -35,7 +35,7 @@ const login = (callback) => {
       }
   }, false);
   
-  var w = window.open(url,
+  const w = window.open(url,
     'Spotify',
     'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
   );

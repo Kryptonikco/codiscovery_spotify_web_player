@@ -5,7 +5,7 @@
 # Installation
 
 - Téléchargez [Node.JS](https://nodejs.org/en/download/)
-- Téléchargez [Atom](https://atom.io/)
+- Téléchargez [VSCode](https://code.visualstudio.com/) ou [Atom](https://atom.io/)
 - Téléchargez [Chrome](https://www.google.com/chrome/)
 - Ouvrez le Terminal/Invite de commandes (en mode administrateur pour Windows) et utilisez la commande `npm i -g create-react-app` pour installer un serveur de développement pour des applications HTML/CSS/JS
 
@@ -26,7 +26,7 @@ Votre application React avec live reload et transpilation de ES6 à ES5 est prê
 - Dans le dossier `spotify_web_player/src` effacez tous les fichiers et créez un fichier `index.js` vide (pour le moment).
 - Dans le dossier `spotify_web_player/public`, effacez les fichiers `favicon.ico` et `manifest.json`
 
-- Téléchargez cette [image]() dans le dossier `spotify_web_player/public`
+- Téléchargez cette [image](./public/favicon.png) dans le dossier `spotify_web_player/public`
 
 Ouvrez le dossier `spotify_web_player` dans votre éditeur de texte. On va pouvoir commencer à coder ! 🤗
 
