@@ -145,7 +145,7 @@ Dans le fichier `public/index.html`
   - avec l'attribut `class` et la valeur `container-fluid`
   - avec une balise `h1` avec le texte `Spotify` à l'intérieur
   - avec une balise `div` qui contiendra les balises suivantes :
-    - avec l'attribut `class` et la valeur `input-group`
+    - avec l'attribut `class` et la valeur `input-group col-xs-10 col-xs-offset-1`
     - avec une balise `input` (auto-fermante)
       - avec l'attribut `id` et la valeur `text`
       - avec l'attribut `class` et la valeur `form-control`
@@ -321,19 +321,19 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
 <summary>Réponse</summary>
 
 ```js
-  $.ajax({
-    url: 'https://api.spotify.com/v1/search',
-    data: {
-      type: 'album',
-      q: query,
-    },
-    success: (response) => {
-      console.log('Appel serveur réussi');
-    },
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  });
+$.ajax({
+  url: 'https://api.spotify.com/v1/search',
+  data: {
+    type: 'album',
+    q: query,
+  },
+  success: (response) => {
+    console.log('Appel serveur réussi');
+  },
+  headers: {
+    Authorization: `Bearer ${accessToken}`
+  }
+});
 ```
 
 </details>
@@ -380,6 +380,8 @@ Oups 😅 : Faites une autre recherche lorsque la précédente est affichée et 
 C'est sûrement pas le résultat escompté...
 Si vous utilisez la méthode `empty` sur un objet jQuery, vous pourrez vider un node du DOM, avant de le remplir avec `append`.
 
+Proitez-en aussi pour effacer le contenu de `#text`, avec la méthode `val` qui sert de getter et de setter, alors mettez une valeur vide.
+
 <details>
 <summary>Réponse</summary>
 
@@ -393,6 +395,7 @@ Si vous utilisez la méthode `empty` sur un objet jQuery, vous pourrez vider un 
     success: (response) => {
       // console.log('Appel serveur réussi');
       $('#list').empty();
+      $('#text').val('');
       const items = response.albums.items;
       items.forEach((item) => {
         $('#list').append(`<p>${item.name}</p>`);
