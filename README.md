@@ -221,7 +221,6 @@ Admirez votre travail sur le navigateur. Vous devez voir votre titre, un formula
 body {
   background-color: #2F2F2F;
   color: #F1F1F1;
-  font-family: 'Nunito', sans-serif;
 }
 
 .input-group {
@@ -575,6 +574,8 @@ const callSpotifyAlbums = (query) => {
 <summary>Réponse</summary>
 
 ```js
+const audioPlayer = new Audio();
+
 const callSpotifyTrack = (albumId) => {
   $.ajax({
     url: 'https://api.spotify.com/v1/albums/' + albumId,

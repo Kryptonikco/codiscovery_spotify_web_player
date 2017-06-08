@@ -49,23 +49,26 @@ const displaySearch = () => {
 };
 
 const attachEvents = () => {
-  $('#login').click(() => {
-    login(displaySearch);
-  });
   $('#search').click(() => {
     const query = $('#text').val();
     callSpotifyAlbums(query);
-  });
-  $('.input-group').keypress((e) => {
-    if (e.which === 13) {
-      const query = $('#text').val();
-      callSpotifyAlbums(query);
-    }
   });
   $('#list').on('click', '.album', (e) => {
     const img = $(e.target).parents('.album').find('.cover');
     const id = img.data('albumId');
     callSpotifyTrack(id);
+  });
+
+  // for login
+  $('#login').click(() => {
+    login(displaySearch);
+  });
+  // extra: start a search by typing `enter` instead of clicking on the button
+  $('.input-group').keypress((e) => {
+    if (e.which === 13) {
+      const query = $('#text').val();
+      callSpotifyAlbums(query);
+    }
   });
 };
 
