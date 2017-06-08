@@ -4,8 +4,6 @@ import Handlebars from 'handlebars';
 let accessToken = null;
 const itemTemplateSource = $('#result').html();
 const itemTemplate = Handlebars.compile(itemTemplateSource);
-const playerTemplateSource = $('#player').html();
-const playerTemplate = Handlebars.compile(playerTemplateSource);
 const audioPlayer = new Audio();
 
 const login = (callback) => {
@@ -50,71 +48,28 @@ const displaySearch = () => {
 
 const attachEvents = () => {
   $('#search').click(() => {
-    const query = $('#text').val();
-    callSpotifyAlbums(query);
+    // Step 4
   });
   $('#list').on('click', '.album', (e) => {
-    const img = $(e.target).parents('.album').find('.cover');
-    const id = img.data('albumId');
-    callSpotifyTrack(id);
+    // Step 9
   });
 
   // for login
   $('#login').click(() => {
     login(displaySearch);
   });
-  // extra: start a search by typing `enter` instead of clicking on the button
-  $('.input-group').keypress((e) => {
-    if (e.which === 13) {
-      const query = $('#text').val();
-      callSpotifyAlbums(query);
-    }
-  });
 };
 
-const callSpotifyAlbums = (query) => {
-  $.ajax({
-    url: 'https://api.spotify.com/v1/search',
-    data: {
-      type: 'album',
-      q: query,
-    },
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    },
-    success: (response) => {
-      // console.log('#callSpotifyAlbums response', response.albums.items);
-      $('#list').empty();
-      const items = response.albums.items;
-      items.forEach((item) => {
-        $('#list').append(itemTemplate(item));
-      });
-    }
-  });
-};
+// Step 4
 
 const callSpotifyTrack = (albumId) => {
   $.ajax({
-    url: 'https://api.spotify.com/v1/albums/' + albumId,
+    url: '', //Step 9
+    success: (response) => {
+      // Step 9
+    },
     headers: {
       Authorization: `Bearer ${accessToken}`
-    },
-    success: (response) => {
-      // console.log('#callSpotifyTrack response', response);
-      const track = response.tracks.items[0]; // to simplify we purposefully use the first track of each album
-      const url = track.preview_url;
-      const player = {
-        title: track.name,
-        artist: track.artists[0].name,
-        album: response.name
-      };
-      audioPlayer.pause();
-      audioPlayer.src = url;
-      $('#player-container')
-        .html(playerTemplate(player))
-        .find('.player')
-        .removeClass('hide');
-      audioPlayer.play();
     }
   });
 };

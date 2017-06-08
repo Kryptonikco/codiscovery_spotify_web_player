@@ -307,6 +307,8 @@ const callSpotifyAlbums = (query) => {
 - Ajoutez la clé `data` qui aura pour valeur, un autre objet :
   - qui aura pour clé `type` de valeur `album` (chaîne de caractère)
   - et une autre clé `q` de valeur `query` (la variable)
+- Ajoutez la clé `headers` qui aura pour valeur, un autre objet :
+  - qui aura pour clé `Authorization` de valeur : ``Bearer ${accessToken}``
 - Ajoutez la clé `success` avec pour valeur une fonction qui aura pour paramètre `response` qui contiendra la réponse du serveur Spotify
   - ajoutez un `console.log` qui appelera la variable `response`
 
@@ -327,6 +329,9 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
     },
     success: (response) => {
       console.log('Appel serveur réussi');
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 ```
@@ -358,6 +363,9 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
       items.forEach((item) => {
         $('#list').append(`<p>${item.name}</p>`);
       });
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 ```
@@ -389,6 +397,9 @@ Si vous utilisez la méthode `empty` sur un objet jQuery, vous pourrez vider un 
       items.forEach((item) => {
         $('#list').append(`<p>${item.name}</p>`);
       });
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 ```
@@ -563,6 +574,8 @@ const callSpotifyTrack = (query) => {
 ```
 
 - Ajoutez la clé `url` avec pour valeur une chaîne de caractère : `http://api.spotify.com/v1/albums/<albumId>` (en remplaçant `<albumId>` par la variable) 
+- Ajoutez la clé `headers` qui aura pour valeur un autre objet :
+  - qui aura pour clé `Authorization` de valeur : ``Bearer ${accessToken}``
 - Ajoutez la clé `success` avec pour valeur une fonction qui aura pour paramètre `response` qui contiendra la réponse du serveur Spotify
   - créez la variable `track` qui contiendra la 1ère chanson de l'album que vous récupérerez avec `response.tracks.items[0]`
   - créez la variable `url` où vous récupérerez la `preview_url` de l'objet `track`
@@ -595,6 +608,9 @@ const callSpotifyTrack = (albumId) => {
       audioPlayer.pause();
       audioPlayer.src = url;
       audioPlayer.play();
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 };

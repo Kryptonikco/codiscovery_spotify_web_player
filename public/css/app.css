@@ -3,85 +3,15 @@
   Black: 2F2F2F
 **/
 
-body {
-  background-color: #2F2F2F;
-  color: #F1F1F1;
-}
+/** Step 3: Start **/
 
-.input-group {
-  display: none;
-  margin-bottom: 20px;
-}
 
-.form-control {
-  background-color: #2F2F2F;
-  color: #F1F1F1;
-}
 
-.btn-default {
-  background-color: #1ED760;
-}
+/** Step 3: End **/
 
-h1 {
-  color: #1ED760;
-  text-align: center;
-}
+/** Step 8: Start **/
 
-.row.album {
-  border-top: 1px solid #CCC;
-  cursor: pointer;
-}
-.row.album:hover {
-  background-color: rgba(0, 0, 0, .4);
-}
-.row.album .pic {
-}
 
-.row.album .play-btn {
-  display: none;
-  position: absolute;
-  text-align: center;
-  bottom: 5px;
-  padding-top: 3px;
-  background-color: rgba(0, 0, 0, .4);
-  width: 30px;
-  height: 30px;
-  border-radius: 15px;
-}
-.row.album:hover .play-btn {
-  display: block;
-}
-.album .details {
-  padding-top: 10px;
-  padding-left: 0;
-}
-.album .details .artist {
-  font-size: 0.8em;
-}
 
-.cover {
-  width: 100%;
-}
+/** Step 8: End **/
 
-.player {
-  position: fixed;
-  bottom: 0;
-  height: 40px;
-  padding-top: 3px;
-  width: 100%;
-  background-color: #2F2F2F;
-  border-top: 1px solid #CCCCCC;
-}
-.player-controls {
-  padding-top: 5px;
-}
-.player-details {
-  text-align: center;
-  font-size: 12px;
-}
-.player-title {
-}
-.player-album {
-  font-size: 10px;
-  color: #AAA;
-}
