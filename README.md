@@ -10,6 +10,14 @@
 - Créez un compte [Spotify](https://www.spotify.com/fr/) si vous n'en avez pas déjà un
 - Ouvrez le Terminal/Invite de commandes (en mode administrateur pour Windows) et utilisez la commande `npm i -g create-react-app` pour installer un serveur de développement pour des applications HTML/CSS/JS
 
+N.B : Ceux qui veulent tenter de tout faire par eux-mêmes peuvent démarrer maintenant en clonant le master. Lancez la commande `npm i` et ensuite `npm start` pour voir le résultat final. N'hésitez pas à poser des questions.
+
+# Explications
+
+La création de l'application sera séparée en étapes. Chaque étape aura sa solution à la fin. Et avant de passer à l'étape suivante, une petite phrase vous expliquera ce qu'il faut pour passer à l'étape suivante (si vous n'avez pas utilisé la solution).
+
+Les instructions sont parfois très détaillées : elles le sont pour ceux qui découvrent la programmation.
+
 # Préparation
 
 Exécutez les commandes suivantes dans le dossier de votre choix (pensez à ouvrir l'invite de commande en administrateur sous Windows) :
@@ -27,33 +35,111 @@ Votre application React avec live reload et transpilation de ES6 à ES5 est prê
 - Dans le dossier `spotify_web_player/src` effacez tous les fichiers et créez un fichier `index.js` vide (pour le moment).
 - Dans le dossier `spotify_web_player/public`, effacez les fichiers `favicon.ico` et `manifest.json`
 
-- Téléchargez cette [image](./public/favicon.png) dans le dossier `spotify_web_player/public`
+- Téléchargez cette [image](./public/favicon.png) dans le dossier `spotify_web_player/public` sans la renommer.
 
 Ouvrez le dossier `spotify_web_player` dans votre éditeur de texte. On va pouvoir commencer à coder ! 🤗
 
+⚠️ L'API de Spotify a changé dernièrement : il vous faut avoir un compte Spotify.
+
+Insérez ce code de base pour faciliter votre démarrage :
+
+<details>
+<summary>Démarrage</summary>
+
+- `public/index.html` remplacez tout le `body` par ça :
+
+```html
+<div class="col-xs-12 login">
+  <p>To use the player, login with your Spotify account</p>
+  <button id="login" class="btn btn-default text-align">Login</button>
+</div>
+```
+
+- `public/src/index.js`
+
+```js
+let accessToken = null;
+
+const login = (callback) => {
+  const CLIENT_ID = '7b1fc9ad7b5d4197a17901f7b62677e0';
+  const REDIRECT_URI = 'http://labs.kryptonik.net/spotify-oauth-localhost-proxy/';
+  const getLoginURL = (scopes) => {
+      return 'https://accounts.spotify.com/authorize?client_id=' + CLIENT_ID +
+        '&redirect_uri=' + encodeURIComponent(REDIRECT_URI) +
+        '&scope=' + encodeURIComponent(scopes.join(' ')) +
+        '&response_type=token';
+  };
+  
+  const url = getLoginURL([
+      'user-read-email'
+  ]);
+  
+  const width = 450;
+  const height = 730;
+  const left = (screen.width / 2) - (width / 2); // eslint-disable-line no-restricted-globals
+  const top = (screen.height / 2) - (height / 2); // eslint-disable-line no-restricted-globals
+
+  window.addEventListener("message", (event) => {
+      var hash = JSON.parse(event.data);
+      if (hash.type == 'access_token') {
+          accessToken = hash.access_token;
+          callback(null, true);
+      }
+  }, false);
+  
+  const w = window.open(url,
+    'Spotify',
+    'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
+  );
+}
+
+const displaySearch = () => {
+  $('.login').hide();
+  // To uncomment after step 2
+  // $('.input-group').css({
+  //   display: 'table',
+  // });
+};
+
+$('#login').click(() => {
+  login(displaySearch);
+});
+
+login(displaySearch);
+```
+
+</details>
+
+
 # Etape 1 - Les imports externes
 
-- Dans le `public/index.html`:
-  - ajoutez la balise `link`
+- Dans le `head` du fichier `public/index.html`:
+  - ajoutez la balise auto-fermante `link`
     - avec l'attribut `rel` et la valeur `stylesheet`
     - avec l'attribut `href` et la valeur `https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css`
-  - ajoutez la balise `link`
+  - ajoutez la balise auto-fermante `link`
     - avec l'attribut `rel` et la valeur `stylesheet`
     - avec l'attribut `href` et la valeur `https://fonts.googleapis.com/icon?family=Material+Icons`
+
+<details>
+<summary>Réponse</summary>
+
+```html
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+```
+
+</details>
 
 Avant de passer à l'étape suivante, vérifiez que la police d'écriture a changé
 
 # Etape 2 - HTML
 
-Ouvrez le fichier `public/index.html`
+Dans le fichier `public/index.html`
 
 - Changez le contenu de la balise `title` dans le `head` en *Spotify Player - Codiscovery*
-- Effacez tout entre les balises `body` pour n'avoir que ça :
+- Avant la balise de fermeture `</body>`, placez le code suivant :
 
-```html
-<body>
-</body>
-```
 - Ajoutez une balise `div`
   - avec l'attribut `class` et la valeur `container-fluid`
   - avec une balise `h1` avec le texte `Spotify` à l'intérieur
@@ -72,10 +158,35 @@ Ouvrez le fichier `public/index.html`
         - avec le texte `Search`
   - avec une balise `div`
     - avec l'attribut `id` et la valeur `list`
-  - avec une balise `div`
-    - avec l'attribut `id` et la valeur `player`
 
-Admirez votre travail sur le navigateur (les 2 dernières `div` ne sont pas visibles : c'est normal).
+- Replacez l'élément `div.login` juste en dessous de la balise `h1`
+
+<details>
+<summary>Réponse</summary>
+
+```html
+<div class="container-fluid">
+  <h1>Spotify</h1>
+  <div class="col-xs-12 login">
+    <p>To use the player, login with your Spotify account</p>
+    <button id="login" class="btn btn-default text-align">Login</button>
+  </div><!-- /.login -->
+  <div class="input-group col-xs-10 col-xs-offset-1">
+    <input id="text" class="form-control" placeholder="Album..." />
+    <span class="input-group-btn">
+      <button id="search" type="button" class="btn btn-default">Search</button>
+    </span>
+  </div><!-- /.input-group -->
+
+  <div id="list"></div>
+  <div id="player-container"></div>
+</div><!-- /.container-fluid -->
+```
+
+</details>
+
+Admirez votre travail sur le navigateur. Vous devez voir votre titre, un formulaire pour taper du texte et un bouton (les 2 dernières `div` ne sont pas visibles : c'est normal).
+
 
 # Etape 3 - Avec un peu d'`id` et de `class`, on a beaucoup de `style`
 
@@ -92,19 +203,47 @@ Admirez votre travail sur le navigateur (les 2 dernières `div` ne sont pas visi
   - ajoutez le sélecteur `h1` et dans ce sélecteur
     - ajoutez la propriété `color` avec la valeur `#1ED760`
     - ajoutez la propriété `text-align` avec la valeur `center`
-  - ajoutez le sélecteur `input` et dans ce sélecteur
+  - ajoutez le sélecteur `.input-group` et dans ce sélecteur
     - ajoutez la propriété `background-color` avec la valeur `#2F2F2F`
     - ajoutez la propriété `color` avec la valeur `#F1F1F1`
-  - ajoutez le sélecteur `button` et dans ce sélecteur
+    - ajoutez la propriété `display` avec la valeur `none`
+  - ajoutez le sélecteur `.btn-default` et dans ce sélecteur
     - ajoutez la propriété `background-color` et la valeur `#1ED760`
+
+<details>
+<summary>Réponse</summary>
+
+```css
+body {
+  background-color: #2F2F2F;
+  color: #F1F1F1;
+  font-family: 'Nunito', sans-serif;
+}
+
+.input-group {
+  display: none;
+  margin-bottom: 20px;
+}
+
+.btn-default {
+  background-color: #1ED760;
+}
+
+h1 {
+  color: #1ED760;
+  text-align: center;
+}
+```
+
+</details>
 
 Regardez le résultat dans votre navigateur, la page et le texte ont changé de couleur.
 
-🤓 IZI !
+😎 IZI !
 
 # Etape 4 - Détection du click
 
-N.B: On utilisera ES6
+N.B: On utilisera ES6 (la version moderne de JavaScript)
 
 - Importez jQuery:
 
@@ -402,3 +541,4 @@ GLHF!
 # THE END
 
 Tutoriel créé par [Kryptonik 🍃 Evolving with technology](http://kryptonik.net)
+Le code est fortement inspiré des tutoriaux de [Spotify](https://developer.spotify.com/web-api/tutorial/) et de [@jmperezperez](https://twitter.com/jmperezperez)
