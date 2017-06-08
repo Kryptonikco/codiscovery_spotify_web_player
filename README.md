@@ -555,7 +555,7 @@ Vous voyez le bouton Play quand vous passez la souris sur un item ? Alors passez
 - Créez la fonction `callSpotifyTrack` qui fera un appel à la méthode `ajax` de jQuery qui a pour paramètre un objet.
 
 ```js
-const callSpotifyAlbums = (query) => {
+const callSpotifyTrack = (query) => {
   $.ajax({
     // ...
   });
@@ -575,6 +575,16 @@ const callSpotifyAlbums = (query) => {
 
 ```js
 const audioPlayer = new Audio();
+
+// ...
+
+$('#list').on('click', '.album', (e) => {
+  const img = $(e.target).parents('.album').find('.cover');
+  const id = img.data('albumId');
+  callSpotifyTrack(id);
+});
+
+// ...
 
 const callSpotifyTrack = (albumId) => {
   $.ajax({
