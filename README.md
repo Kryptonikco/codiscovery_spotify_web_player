@@ -7,6 +7,7 @@
 - Téléchargez [Node.JS](https://nodejs.org/en/download/)
 - Téléchargez [VSCode](https://code.visualstudio.com/) ou [Atom](https://atom.io/)
 - Téléchargez [Chrome](https://www.google.com/chrome/)
+- Créez un compte [Spotify](https://www.spotify.com/fr/) si vous n'en avez pas déjà un
 - Ouvrez le Terminal/Invite de commandes (en mode administrateur pour Windows) et utilisez la commande `npm i -g create-react-app` pour installer un serveur de développement pour des applications HTML/CSS/JS
 
 # Préparation
@@ -30,7 +31,19 @@ Votre application React avec live reload et transpilation de ES6 à ES5 est prê
 
 Ouvrez le dossier `spotify_web_player` dans votre éditeur de texte. On va pouvoir commencer à coder ! 🤗
 
-# Etape 1 - HTML
+# Etape 1 - Les imports externes
+
+- Dans le `public/index.html`:
+  - ajoutez la balise `link`
+    - avec l'attribut `rel` et la valeur `stylesheet`
+    - avec l'attribut `href` et la valeur `https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css`
+  - ajoutez la balise `link`
+    - avec l'attribut `rel` et la valeur `stylesheet`
+    - avec l'attribut `href` et la valeur `https://fonts.googleapis.com/icon?family=Material+Icons`
+
+Avant de passer à l'étape suivante, vérifiez que la police d'écriture a changé
+
+# Etape 2 - HTML
 
 Ouvrez le fichier `public/index.html`
 
@@ -64,22 +77,9 @@ Ouvrez le fichier `public/index.html`
 
 Admirez votre travail sur le navigateur (les 2 dernières `div` ne sont pas visibles : c'est normal).
 
-# Etape 2 - Les imports externes
-
-- Dans le `public/index.html`:
-  - ajoutez la balise `link`
-    - avec l'attribut `rel` et la valeur `stylesheet`
-    - avec l'attribut `href` et la valeur `https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css`
-  - ajoutez la balise `link`
-    - avec l'attribut `rel` et la valeur `stylesheet`
-    - avec l'attribut `href` et la valeur `https://fonts.googleapis.com/icon?family=Material+Icons`
-
-Avant de passer à l'étape suivante, vérifiez que la police d'écriture a changé
-
-
 # Etape 3 - Avec un peu d'`id` et de `class`, on a beaucoup de `style`
 
-- Dans le `public/index.html`, ajoutez la balise `link`
+- Dans le `public/index.html`, dans le `head` ajoutez la balise `link`
   - avec l'attribut `rel` et la valeur `stylesheet`
   - avec l'attribut `href` et la valeur `css/app.css`
 - Créez le dossier `css` dans le dossier `public` et créez le fichier `app.css`

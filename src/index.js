@@ -41,14 +41,16 @@ const login = (callback) => {
   );
 }
 
+const displaySearch = () => {
+  $('.login').hide();
+  $('.input-group').css({
+    display: 'table',
+  });
+};
+
 const attachEvents = () => {
   $('#login').click(() => {
-    login(() => {
-      $('.login').hide();
-      $('.input-group').css({
-        display: 'table',
-      });
-    });
+    login(displaySearch);
   });
   $('#search').click(() => {
     const query = $('#text').val();
@@ -111,3 +113,4 @@ const callSpotifyTrack = (albumId) => {
 
 
 attachEvents();
+login(displaySearch);
