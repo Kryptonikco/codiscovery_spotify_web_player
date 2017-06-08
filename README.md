@@ -145,7 +145,7 @@ Dans le fichier `public/index.html`
   - avec l'attribut `class` et la valeur `container-fluid`
   - avec une balise `h1` avec le texte `Spotify` à l'intérieur
   - avec une balise `div` qui contiendra les balises suivantes :
-    - avec l'attribut `class` et la valeur `input-group`
+    - avec l'attribut `class` et la valeur `input-group col-xs-10 col-xs-offset-1`
     - avec une balise `input` (auto-fermante)
       - avec l'attribut `id` et la valeur `text`
       - avec l'attribut `class` et la valeur `form-control`
@@ -307,6 +307,8 @@ const callSpotifyAlbums = (query) => {
 - Ajoutez la clé `data` qui aura pour valeur, un autre objet :
   - qui aura pour clé `type` de valeur `album` (chaîne de caractère)
   - et une autre clé `q` de valeur `query` (la variable)
+- Ajoutez la clé `headers` qui aura pour valeur, un autre objet :
+  - qui aura pour clé `Authorization` de valeur : ``Bearer ${accessToken}``
 - Ajoutez la clé `success` avec pour valeur une fonction qui aura pour paramètre `response` qui contiendra la réponse du serveur Spotify
   - ajoutez un `console.log` qui appelera la variable `response`
 
@@ -319,16 +321,19 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
 <summary>Réponse</summary>
 
 ```js
-  $.ajax({
-    url: 'https://api.spotify.com/v1/search',
-    data: {
-      type: 'album',
-      q: query,
-    },
-    success: (response) => {
-      console.log('Appel serveur réussi');
-    }
-  });
+$.ajax({
+  url: 'https://api.spotify.com/v1/search',
+  data: {
+    type: 'album',
+    q: query,
+  },
+  success: (response) => {
+    console.log('Appel serveur réussi');
+  },
+  headers: {
+    Authorization: `Bearer ${accessToken}`
+  }
+});
 ```
 
 </details>
@@ -358,6 +363,9 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
       items.forEach((item) => {
         $('#list').append(`<p>${item.name}</p>`);
       });
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 ```
@@ -372,6 +380,8 @@ Oups 😅 : Faites une autre recherche lorsque la précédente est affichée et 
 C'est sûrement pas le résultat escompté...
 Si vous utilisez la méthode `empty` sur un objet jQuery, vous pourrez vider un node du DOM, avant de le remplir avec `append`.
 
+Proitez-en aussi pour effacer le contenu de `#text`, avec la méthode `val` qui sert de getter et de setter, alors mettez une valeur vide.
+
 <details>
 <summary>Réponse</summary>
 
@@ -385,10 +395,14 @@ Si vous utilisez la méthode `empty` sur un objet jQuery, vous pourrez vider un 
     success: (response) => {
       // console.log('Appel serveur réussi');
       $('#list').empty();
+      $('#text').val('');
       const items = response.albums.items;
       items.forEach((item) => {
         $('#list').append(`<p>${item.name}</p>`);
       });
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 ```
@@ -563,6 +577,8 @@ const callSpotifyTrack = (query) => {
 ```
 
 - Ajoutez la clé `url` avec pour valeur une chaîne de caractère : `http://api.spotify.com/v1/albums/<albumId>` (en remplaçant `<albumId>` par la variable) 
+- Ajoutez la clé `headers` qui aura pour valeur un autre objet :
+  - qui aura pour clé `Authorization` de valeur : ``Bearer ${accessToken}``
 - Ajoutez la clé `success` avec pour valeur une fonction qui aura pour paramètre `response` qui contiendra la réponse du serveur Spotify
   - créez la variable `track` qui contiendra la 1ère chanson de l'album que vous récupérerez avec `response.tracks.items[0]`
   - créez la variable `url` où vous récupérerez la `preview_url` de l'objet `track`
@@ -595,6 +611,9 @@ const callSpotifyTrack = (albumId) => {
       audioPlayer.pause();
       audioPlayer.src = url;
       audioPlayer.play();
+    },
+    headers: {
+      Authorization: `Bearer ${accessToken}`
     }
   });
 };
