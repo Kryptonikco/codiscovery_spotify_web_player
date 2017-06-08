@@ -29,13 +29,13 @@ const login = (callback) => {
 
   window.addEventListener("message", (event) => {
       var hash = JSON.parse(event.data);
-      if (hash.type == 'access_token') {
+      if (hash.type === 'access_token') {
           accessToken = hash.access_token;
           callback(null, true);
       }
   }, false);
   
-  const w = window.open(url,
+  window.open(url,
     'Spotify',
     'menubar=no,location=no,resizable=no,scrollbars=no,status=no, width=' + width + ', height=' + height + ', top=' + top + ', left=' + left
   );
@@ -54,8 +54,13 @@ const attachEvents = () => {
   });
   $('#search').click(() => {
     const query = $('#text').val();
-    console.log('query', query);
     callSpotifyAlbums(query);
+  });
+  $('.input-group').keypress((e) => {
+    if (e.which === 13) {
+      const query = $('#text').val();
+      callSpotifyAlbums(query);
+    }
   });
   $('#list').on('click', '.album', (e) => {
     const img = $(e.target).parents('.album').find('.cover');
@@ -75,7 +80,7 @@ const callSpotifyAlbums = (query) => {
       Authorization: `Bearer ${accessToken}`
     },
     success: (response) => {
-      console.log('#callSpotifyAlbums response', response.albums.items);
+      // console.log('#callSpotifyAlbums response', response.albums.items);
       $('#list').empty();
       const items = response.albums.items;
       items.forEach((item) => {
@@ -92,7 +97,7 @@ const callSpotifyTrack = (albumId) => {
       Authorization: `Bearer ${accessToken}`
     },
     success: (response) => {
-      console.log('#callSpotifyTrack response', response);
+      // console.log('#callSpotifyTrack response', response);
       const track = response.tracks.items[0]; // to simplify we purposefully use the first track of each album
       const url = track.preview_url;
       const player = {
@@ -113,4 +118,3 @@ const callSpotifyTrack = (albumId) => {
 
 
 attachEvents();
-login(displaySearch);

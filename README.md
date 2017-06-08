@@ -39,7 +39,7 @@ Votre application React avec live reload et transpilation de ES6 à ES5 est prê
 
 Ouvrez le dossier `spotify_web_player` dans votre éditeur de texte. On va pouvoir commencer à coder ! 🤗
 
-⚠️ L'API de Spotify a changé dernièrement : il vous faut avoir un compte Spotify.
+⚠️ L'API de Spotify a changé dernièrement : il vous faut avoir un compte Spotify et vous authentifier (ce qui fait beaucoup en 2h).
 
 Insérez ce code de base pour faciliter votre démarrage :
 
@@ -55,7 +55,7 @@ Insérez ce code de base pour faciliter votre démarrage :
 </div>
 ```
 
-- `public/src/index.js`
+- `src/index.js`
 
 ```js
 let accessToken = null;
@@ -131,6 +131,7 @@ login(displaySearch);
 
 </details>
 
+
 Avant de passer à l'étape suivante, vérifiez que la police d'écriture a changé
 
 # Etape 2 - HTML
@@ -161,6 +162,7 @@ Dans le fichier `public/index.html`
 
 - Replacez l'élément `div.login` juste en dessous de la balise `h1`
 
+
 <details>
 <summary>Réponse</summary>
 
@@ -184,6 +186,7 @@ Dans le fichier `public/index.html`
 ```
 
 </details>
+
 
 Admirez votre travail sur le navigateur. Vous devez voir votre titre, un formulaire pour taper du texte et un bouton (les 2 dernières `div` ne sont pas visibles : c'est normal).
 
@@ -209,6 +212,7 @@ Admirez votre travail sur le navigateur. Vous devez voir votre titre, un formula
     - ajoutez la propriété `display` avec la valeur `none`
   - ajoutez le sélecteur `.btn-default` et dans ce sélecteur
     - ajoutez la propriété `background-color` et la valeur `#1ED760`
+
 
 <details>
 <summary>Réponse</summary>
@@ -237,6 +241,7 @@ h1 {
 
 </details>
 
+
 Regardez le résultat dans votre navigateur, la page et le texte ont changé de couleur.
 
 😎 IZI !
@@ -256,10 +261,11 @@ import $ from 'jquery';
 ```
 
 - Créez la variable constante `attachEvents` qui est une fonction sur laquelle vous attacherez l'événement `click` à l'objet jQuery `#search`.
-- Dans cet événement, récupérez la valeur de l'input `#text` dans une variable constante nommée `query`
+- Dans cet événement, récupérez la valeur de l'input `#text` avec la méthode jQuery `val` dans une variable constante nommée `query`
 - Toujours dans cet événement, appelez la fonction `callSpotifyAlbums` avec la variable `query` en paramètre.
 - Créez la variable constante `callSpotifyAlbums` qui est une fonction à laquelle on mettra temporairement un `console.log` qui appelera la variable `query`
 - Enfin, à la dernière ligne, appelez la fonction `attachEvents`
+
 
 <details>
 <summary>Réponse</summary>
@@ -280,6 +286,7 @@ attachEvents();
 ```
 
 </details>
+
 
 Avant de passer à l'étape suivante, tapez un texte, cliquez sur le bouton "Search" et vérifiez que la `query` apparaît dans la console JavaScript de Chrome.
 
@@ -326,6 +333,7 @@ Avant de passer à l'étape suivante, vérifiez que vous affichez bien le messag
 ```
 
 </details>
+
 
 # Etape 6 - Faire une boucle
 
@@ -429,6 +437,8 @@ import Handlebars from 'handlebars';
 <details>
 <summary>Réponse</summary>
 
+- `src/index.js`
+
 ```js
 const itemTemplateSource = $('#result').html();
 const itemTemplate = Handlebars.compile(itemTemplateSource);
@@ -439,8 +449,24 @@ const itemTemplate = Handlebars.compile(itemTemplateSource);
     $('#list').append(itemTemplate(item));
 ```
 
-</details>
+- `public/index.html`
 
+```html
+<script id="result" type="text/x-handlebars-template">
+  <div class="row album">
+    <div class="col-xs-3 pic">
+      <i class="material-icons play-btn">play_arrow</i>
+      <img src="{{images.0.url}}" data-album-id="{{id}}" class="cover img-responsive" />
+    </div>
+    <div class="col-xs-9 details">
+      <p class="title">{{name}}</p>
+      <p class="artist">{{artists.0.name}}</p>
+    </div>
+  </div>
+</script>
+```
+
+</details>
 
 
 # Etape 8 - La beauté du template
@@ -451,7 +477,7 @@ const itemTemplate = Handlebars.compile(itemTemplateSource);
     - avec la propriété `cursor` et sa valeur `pointer`
   - le sélecteur `.row.album:hover`
     - avec la propriété `background-color` et sa valeur `rgba(0, 0, 0, .4)`
-  - le sélecteur `.row.album play-btn`
+  - le sélecteur `.row.album .play-btn`
     - avec la propriété `position` de valeur `absolute`
     - avec la propriété `display` de valeur `none`
     - avec la propriété `text-align` de valeur `center`
@@ -462,6 +488,59 @@ const itemTemplate = Handlebars.compile(itemTemplateSource);
     - avec la propriété `border-radius` de valeur `15px`
   - le sélecteur `.row.album:hover play-btn`
     - avec la propriété `display` de valeur `block`
+  - le sélecteur `.cover`
+    - avec la propriété `font-size` de valeur `0.8em`
+  - le sélecteur `.album .details .artist`
+    - avec la propriété `position` de valeur `absolute`
+  - le sélecteur `.album .details`
+    - avec la propriété `padding-top` de valeur `10px`
+    - avec la propriété `padding-left` de valeur `0`
+
+
+<details>
+<summary>Réponse</summary>
+
+```css
+.row.album {
+  border-top: 1px solid #CCC;
+  cursor: pointer;
+}
+
+.row.album:hover {
+  background-color: rgba(0, 0, 0, .4);
+}
+
+.row.album .play-btn {
+  display: none;
+  position: absolute;
+  text-align: center;
+  bottom: 5px;
+  padding-top: 3px;
+  background-color: rgba(0, 0, 0, .4);
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.row.album:hover .play-btn {
+  display: block;
+}
+
+.album .details {
+  padding-top: 10px;
+  padding-left: 0;
+}
+.album .details .artist {
+  font-size: 0.8em;
+}
+
+.cover {
+  width: 100%;
+}
+```
+
+</details>
+
 
 Vous voyez le bouton Play quand vous passez la souris sur un item ? Alors passez à l'étape suivante 😬
 
