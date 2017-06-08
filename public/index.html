@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Step 3: Start -->
-    <link rel="stylesheet" href="css/app.css">
+    
     <!-- Step 3: End -->
     <!--
       Notice the use of %PUBLIC_URL% in the tag above.
@@ -35,36 +35,16 @@
     <title>Spotify Web Player × Codiscovery × Kryptonik</title>
   </head>
   <body>
+    <div class="col-xs-12 login">
+      <p>To use the player, login with your Spotify account</p>
+      <button id="login" class="btn btn-default text-align">Login</button>
+    </div><!-- /.login -->
     <!-- Step 2: Start -->
-    <div class="container-fluid">
-  <h1>Spotify</h1>
-  <div class="col-xs-12 login">
-    <p>To use the player, login with your Spotify account</p>
-    <button id="login" class="btn btn-default text-align">Login</button>
-  </div><!-- /.login -->
-  <div class="input-group col-xs-10 col-xs-offset-1">
-    <input id="text" class="form-control" placeholder="Album..." />
-    <span class="input-group-btn">
-      <button id="search" type="button" class="btn btn-default">Search</button>
-    </span>
-  </div><!-- /.input-group -->
 
-  <div id="list"></div>
-  <div id="player-container"></div>
-</div><!-- /.container-fluid -->
     <!-- Step 2: End -->
     <script id="result" type="text/x-handlebars-template">
       <!-- Step 7: Start -->
-      <div class="row album">
-    <div class="col-xs-3 pic">
-      <i class="material-icons play-btn">play_arrow</i>
-      <img src="{{images.0.url}}" data-album-id="{{id}}" class="cover img-responsive" />
-    </div>
-    <div class="col-xs-9 details">
-      <p class="title">{{name}}</p>
-      <p class="artist">{{artists.0.name}}</p>
-    </div>
-  </div>
+
       <!-- Step 7: End -->
     </script>
   </body>

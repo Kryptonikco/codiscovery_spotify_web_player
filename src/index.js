@@ -48,13 +48,10 @@ const displaySearch = () => {
 
 const attachEvents = () => {
   $('#search').click(() => {
-    const query = $('#text').val();
-    callSpotifyAlbums(query);
+    // Step 4
   });
   $('#list').on('click', '.album', (e) => {
-    const img = $(e.target).parents('.album').find('.cover');
-  const id = img.data('albumId');
-  callSpotifyTrack(id);
+    // Step 9
   });
 
   // for login
@@ -63,38 +60,13 @@ const attachEvents = () => {
   });
 };
 
-const callSpotifyAlbums = (query) => {
-  $.ajax({
-    url: 'https://api.spotify.com/v1/search',
-    data: {
-      type: 'album',
-      q: query,
-    },
-    success: (response) => {
-      // console.log('Appel serveur réussi');
-      $('#list').empty();
-      $('#text').val('');
-      const items = response.albums.items;
-      items.forEach((item) => {
-        // $('#list').append(`<p>${item.name}</p>`);
-        $('#list').append(itemTemplate(item));
-      });
-    },
-    headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
-  });
-};
+// Step 4
 
 const callSpotifyTrack = (albumId) => {
   $.ajax({
-    url: 'https://api.spotify.com/v1/albums/' + albumId,
+    url: '', //Step 9
     success: (response) => {
-      const track = response.tracks.items[0];
-      const url = track.preview_url;
-      audioPlayer.pause();
-      audioPlayer.src = url;
-      audioPlayer.play();
+      // Step 9
     },
     headers: {
       Authorization: `Bearer ${accessToken}`
