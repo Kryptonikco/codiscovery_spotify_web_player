@@ -85,6 +85,7 @@ const callSpotifyAlbums = (query) => {
     success: (response) => {
       // console.log('#callSpotifyAlbums response', response.albums.items);
       $('#list').empty();
+      $('#text').val('');
       const items = response.albums.items;
       items.forEach((item) => {
         $('#list').append(itemTemplate(item));
@@ -103,17 +104,9 @@ const callSpotifyTrack = (albumId) => {
       // console.log('#callSpotifyTrack response', response);
       const track = response.tracks.items[0]; // to simplify we purposefully use the first track of each album
       const url = track.preview_url;
-      const player = {
-        title: track.name,
-        artist: track.artists[0].name,
-        album: response.name
-      };
+
       audioPlayer.pause();
       audioPlayer.src = url;
-      $('#player-container')
-        .html(playerTemplate(player))
-        .find('.player')
-        .removeClass('hide');
       audioPlayer.play();
     }
   });

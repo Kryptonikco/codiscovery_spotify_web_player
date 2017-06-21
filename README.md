@@ -1,5 +1,7 @@
 # Codiscovery - Spotify Web Player
 
+[![Codiscovery - Spotify player](https://img.youtube.com/vi/NQGqMv0v3Bg/0.jpg)](https://www.youtube.com/watch?v=NQGqMv0v3Bg)
+
 ---
 
 # Installation
@@ -58,6 +60,7 @@ Insérez ce code de base pour faciliter votre démarrage :
 - `src/index.js`
 
 ```js
+import $ from 'jquery';
 let accessToken = null;
 
 const login = (callback) => {
